@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper{
+            width: 600px;
+            margin: auto;
+        }
+    </style>
+    <script>
+        //onload를 쓸 수 있으나, 오늘은 왠지 프로그래밍적으로 해결하겠다!
+        window.addEventListener("load", function(){
+            //이 시점은 body태그까지 모두 읽혀진 시점이므로, 마음대로 각 요소들에 
+            //접근 할 수 있다.
+           var bt =document.querySelector("button");
+           bt.style.background="blue"
+
+           //버튼을 클릭하면..
+           bt.addEventListener("click",function(){
+               send();
+           })
+        });
+        //웹서버에 가입양식의 내용을 네트웍을 통해 전송한다!
+        //이때 전송대상이 되는 컴포넌트(input,select..)들을 전송양식으로
+        //묶어야하는 이때 사용되는 태그가 바로 form태그이다.
+        function send(){
+            //유요성 체크(id제대로 넣었는지 등등)
+            var user_id = document.getElementById("user-id");
+            var pass = document.getElementById("pass");
+            var pass = document.getElementById("pass2");
+
+            console.log("당신이 입력한 아이디는",user_id.value);
+            if(user_id.value==""){//입력값이 비어있다면~!!!
+                alert("아이디를 입력하세요");
+                user_id.focus();//커서를 올려놓는 메서드(함수) 호출~~
+            }
+            else if(pass.value==""){
+                alert("비밀번호를 입력하세요");//패스워드 값이 비어있다면~!!!
+            }else if(pass.value!=pass2.value){
+                alert("비밀번호가 다릅니다");//두 비번이 서로 틀릴대 욕해주자!
+                pass2.focus();
+                //!부정연산자로  false의 값을 갖기 때문에 아래와 같이 풀어서 비교연산자로 처리해도
+                //되고, 부정연산자를 맨앞에 붙야도 된다.
+                //document.getElementByName("agree")[0].checked
+            }else if(document.getElementByName("agree")[0].checked==false){//동의함에 체크를 해야하되는 것
+                alert("동의하셔야 가입이 가능합니다.");
+            }else{
+                var form1 = document.getElementById("form1");
+            //입력양식인 form태그에는 전송대상 서버에 어떤 방식으로 전송할지
+            //등을 지정할 수 있다.
+            form1.action="http://daum.net";//전송대상 url
+            form1.submit();//전송됨(네트워크를 통해 입력데이터들이 전해짐(날아감))
+            }
+            
+        }
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <form id="form1" action="">
+        <table width = "100%" border="1px">
+            <tr>
+                <td><input type ="text" placeholder="your Id" id="user-id"></td>
+            </tr>
+            <tr>
+                <td><input type ="password" placeholder="Your password..." id="pass"></td>
+            </tr>
+            <tr>
+                <td><input type ="password" placeholder="confirm password..." id="pass2"></td>
+            </tr>
+            <tr>
+                <td>
+                    <select name="" id="">
+                        <option value="">010</option>
+                        <option value="">011</option>
+                        <option value="">017</option>
+                        <option value="">019</option>
+                    </select>
+                    <input type="text"placeholder="앞자리">
+                    <input type="text"placeholder="뒷자리">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" name="agree" id="" value="yes">동의
+                    <input type="radio" name="agree" id="" checked value="no">동의 안함
+                    <!-- r -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button">가입</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    </div>
+</body>
+</html>

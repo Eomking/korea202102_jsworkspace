@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>도장찍기</title>
+<style>
+    body{margin: 0px;}
+    .wrapper{
+        width: 700px;
+        height: 600px;
+        background-color: aquamarine;
+        overflow: hidden;
+    }
+    .content{
+        width: 600px;
+        height: 100%;
+        background-color: tomato;
+        float: left;
+        position: relative; /*자식 즉 스크립트부분중 stamp()에서
+        마우스에 x,y축 값을 넣을때 포지션을 absolute값을 넣어줘서 그 부모인
+        content에도 임의의 포지션을 넣어줘야함으로 넣었다.*/
+    }
+    .menu{
+        width: 100px;
+        height: 100%;
+        background-color: wheat;
+        float: left;
+    }
+    
+    .menu img{
+        width: 80px;
+        height: 70px;
+        border: 5px solid red;
+    }
+</style>
+<script>
+    var img_name;//도장찍힐 이미지명
+    //content div에 마우스를 누를때마다, 이미지를 동적으로 부착한다!!
+    //단, 이미지가 붙을 위치는 마우스를 클릭한 좌표와 동일하게...
+    function stamp(){
+        var img = document.createElement("img");//메모리상에만 존재
+        img.src="../images/card/"+img_name+".PNG";//이미지 불러올 것을 변수로설정
+        img.style.width=70+"px"//content에 부착하자
+
+        //x,y좌표의 값을 마우스값과 일치시킨다
+        var x=event.clientX;//마우스의 x값
+        var y=event.clientY;//마우스의 y값
+        img.style.position="absolute";
+
+        img.style.left=x+"px"; //이미지의 x축, y축값을 마우스에 적용시킴
+        img.style.top=y+"px";
+        
+        var content = document.querySelector(".content");
+        content.appendChild(img);
+        
+    }
+</script>   
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content" onmousedown="stamp()"></div>
+        <div class="menu">
+            <img src="../images/card/1.PNG" onclick="img_name=1">
+            <img src="../images/card/2.PNG" onclick="img_name=2">
+            <img src="../images/card/3.PNG" onclick="img_name=3">
+            <img src="../images/card/4.PNG" onclick="img_name=4">
+            <img src="../images/card/j.PNG" onclick="img_name=5">
+        </div>
+    </div>
+</body>
+</html>

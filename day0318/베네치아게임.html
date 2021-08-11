@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 1200px;
+        height: 600px;
+        background-color: teal;
+        margin: auto;
+        overflow: hidden;
+    }    
+    #dashBorad{
+        width: 200px;
+        height: 100%;
+        background-color: aquamarine;
+        float: left;
+    }
+    #content{
+        width: 1000px;
+        height: 100%;
+        background-color: blanchedalmond;
+        float: left;
+        position: relative; /*span 자식 때문에 포지션 지정해줘야함*/
+    }
+    #dashBorad input{
+        width: 95%;
+        font-size: 20px;
+        background-color: dodgerblue;
+        color: white;
+        font-weight: bold;
+    }
+    #hpBox{
+        width: 100%;
+        height: 190px;
+        margin-top: 50px;
+        box-sizing: border-box;
+        padding: 4px 2px 2px 2px; /*<- 순서 left top right bottom*/
+    }
+    #scoreArea{
+        font-size: 60px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 100px;
+    }
+</style>
+<!-- src로 가져오는 script태그 안에는 로직을 짜서는 안됀다!! -->
+<script src="../js/lib.js"></script>
+<script>
+    var hpBox;
+    var content;
+    var scoreArea;
+    var keyword;
+    var spanArray=[]; // 단어가 10개이상되므로 span도 배열로 담아야한다 !!
+    var yArray =[];//각 단어의 y축 초기위치
+    var velY = 10;//몇 발자국씩 내려올지, 속도를 정하는 변수
+    var score = 0;//점수를 누적시킬 전역변수
+    var wordArray=["마우스","광화문","핸드폰","지구","개구리","태풍","콘센트","자바","강아지","실로폰"];
+    function init(){
+        hpBox=document.getElementById("hpBox");
+        content=document.getElementById("content");
+        scoreArea= document.getElementById("scoreArea");
+        keyword= document.getElementById("keyword");
+
+        keyword.addEventListener("keyup",function(){//한자를 입력 완료하는 시점!!
+            //엔터키를 누르면.. 단어와 입력데이터와 비교!!
+            if(event.keyCode==13){
+                //게임에 등장하는 모든~~~~ 단어를 대상으로 비교를 해야 하므로, 반복문으로 처리하자!!
+                for(var i=0; i<spanArray.length; i++){
+                    if(spanArray[i].innerText==keyword.value){//단어를 비교하자!!
+                        //span은 완전히 제거!!!
+                        //화면에 지우는 함수는 removeChild()지만 value는 지운것이아님
+                        //전체 값깢 지우는 함수는 (splice(index, how many?))
+                        content.removeChild(spanArray[i]);
+                        spanArray.splice(i,1);
+                        
+                        keyword.value=""//텍스트 입력초기화
+                        score+=10;//점수누적
+                        printScore();
+                    }
+                }
+            }
+        });
+        
+    }
+
+    function creatHp(){
+        //hp박스를 div로 생성해보자(총 9개)
+        for(var i=0; i<9;i++){
+        var rect=document.createElement("div");
+        rect.style.width=60+"px";
+        rect.style.height=50+"px";
+        rect.style.backgroundColor="red";
+        rect.style.border = "1px solid yellow";
+        rect.style.borderRadius=20+"%";
+        rect.style.float="left";
+        hpBox.appendChild(rect);
+        }
+    }
+    
+    function printScore(){//점수출력을 전담하는 함수
+        scoreArea.innerText=score+"점";
+    }
+
+    function createWord(){
+        //단어를 감싸게 될 요소의 선택기준? 단어의 길이 만큼만 감쌀 수 있는 inline방식 중 하나를 선택하자!!
+        //span 은 단지 감싸는게 목적이고, inline방씩이라서, 너비가 컨텐츠 만큼만 확보된다.(.wrappering or pack)
+        for(var i=0; i<wordArray.length; i++){
+            span = document.createElement("span");
+            span.innerText=wordArray[i];
+            span.backgroundColor="white";
+            span.style.position="absolute"; /*content div를 기준으로 위치를 지정할 예정*/
+            span.style.left = 0+(100*i)+"px";
+            // y값이 너무 일률적이면 재미가 없기 때문에, 랜덤값으로 서로 다른 y 값을 부여하자!!
+            // 0 ~~ -300
+            yArray[i] = -getRandom(300);// 각 span마다 서로 틀린 y값을 가져야 하므로 
+            span.style.top = yArray+"px";
+            //content에 부착
+            content.appendChild(span);
+            //지역변수인 span이 곧 죽기전에 배열에 span엘리먼트를 담아놓자
+            spanArray.push(span);
+        }
+    }
+    
+
+    //단어 점점 내려오는 함수!!
+    function dropDown(){
+        
+        //한 요소만 내리지말고, 10개 모두 내리자!!
+        for(var i=0; i<spanArray.length; i++){
+            yArray[i]= yArray[i]+velY;
+            spanArray[i].style.top = yArray[i]+"px";
+            
+            //지금 떨어지고 있는 span각자는, 스스로 600을 넘어서고 있는지 체크해야한다
+            if(yArray[i]>=600){
+
+            }
+        }
+    }
+
+    window.addEventListener("load",function(){
+        init();
+        creatHp();
+        printScore();
+        createWord();
+        setInterval("dropDown()",300);
+        keyword.focus();
+    });
+</script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="dashBorad">
+        <div id="hpBox"></div>
+        <input type="text" placeholder="단어입력" id="keyword" >
+        <div id="scoreArea"></div>
+    </div>
+    <div id="content"></div>
+</div>
+</body>
+</html>

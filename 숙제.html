@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #hero{
+        position: absolute;/*부모인 body를 기준으로 위치설정 할 거임*/
+        left:0px;
+        top:200px;
+    }
+</style>
+<script>
+    var x = 0;//hero의 x좌표를 결정할 변수
+    var n = 10;
+    
+    function move(){
+
+        x = x+n; //10씩 누적표현식 
+        
+        //h1태그 안쪽에 좌표 텍스트 출력
+        document.querySelector("h1").innerText="x값:"+x;
+        //증가시킨 x변수를 hero 좌표에게 써먹어보자
+        //문서내의 hero 요소의 left값을 변경 시키자!! + 좌표정보갱신
+        document.querySelector("#hero").style.left=x+"px";
+        n=(x<500)? 10 : -10;
+    }
+</script>
+
+<body>
+    <div id="wrapper">
+        <button onclick="move()" id="btn">수동으로 이동</button>
+        <h1>x값:0</h1>
+        <img id="hero" src="./images/hero.jpg" width ="100px">
+    </div>
+</body>
+</html>

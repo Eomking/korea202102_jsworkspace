@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var food=["소고기","짜장면","치킨","닭가슴살","햄버거"];
+        //원하는 메뉴를 선택하기 전에, 컴퓨터에서 랜덤을 구하는 방법부터 구해야함
+        //대부분의 언어가 비슷...(java,javascript 흡사)
+        function getRandom(){
+            var r = parseInt(Math.random()*food.length);
+            console.log(food[r]);
+        }
+    </script>
+
+</head>
+<body>
+    <button onclick="getRandom()">랜덤값구하기</button>
+</body>
+</html>

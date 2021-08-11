@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>게임스테이지 동적생성</title>
+<style>
+    #container{
+        width: 1000px;
+        height: 600px;
+        background: url(../images/bg.jpg);
+        background-size: 1000px 600px;
+        margin: auto;
+        position: relative;
+    }
+</style>
+<script>
+    function init(){
+        container = document.getElementById("container");
+        createBlock();
+    }
+    function createBlock(){
+        var img = document.createElement("img");
+        img.src="../images/block.png";
+        img.style.width=20+"px";
+        img.style.height=20+"px";
+        img.style.position="absolute";
+        img.style.left=550+"px";
+        img.style.top=55+"px";
+
+        //내가 원하는 위치에 1개 이상 배치해보기
+        container.appendChild(img);
+    
+    }
+    window.addEventListener("load",function(){
+        init();
+    });
+</script>
+</head>
+<body>
+<div id="container"></div>
+</body>
+</html>

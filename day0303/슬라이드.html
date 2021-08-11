@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>슬라이드</title>
+    <style>
+        
+        #wrapper{
+            width: 600px;
+            height: 600px;
+            margin: auto;
+        }
+        #pic{
+            width: 100%;
+            height: 550px;
+            background-color: palegreen;
+
+        }
+        #control{
+            position: relative; /* 자식 때문에 포지션을 지정했음*/
+            width: 100%;
+            height: 50px;
+        }
+        #control img{
+            width: 40px;
+        }
+        
+        .bt-right{
+            position:absolute; /*자식이 포지션이 지정되면 부모도 포지션을 지정해줘야한다*/
+            right:0px;
+        }
+
+        #pic img{
+            width: 100%;
+            height: 550px;
+            background-color: purple;
+        }
+    </style>
+    <script>
+        var n = 0;
+        function next(){
+            n = n+1;
+            //문서내의 bt2라 불리는 요소의 src의 값을 변경하자!!
+            document.querySelector("#pic img").src="../images/"+n+".webp";
+        }
+        function unnext(){
+            n=n-1;
+            document.querySelector("#pic img").src="../images/"+n+".webp";
+        }
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="pic">
+            <img src="../images/1.webp" alt="">
+        </div>
+        <div id="control">
+            <img id="bt1" src="../images/left_btn.webp" onclick="unnext()">
+            <img id="bt2" class="bt-right" src="../images/right_btn.webp" onclick="next()">
+        </div>
+    </div>
+</body>
+</html>

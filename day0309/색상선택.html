@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //이벤트 핸들러를 자바스크립트에서 구현 할 수 있다.\
+        //익명(이름없는) 함수 들 중, 시스템에 의해 (주로 이벤트) 호출 당하는
+        //함수를 callback함수라 한다.
+        window.addEventListener("load", function(){
+            init();
+        });
+
+        function init(){
+            // alert("문서 로드했어");
+            var reult = prompt("원하시는 배경색을 선택하세요\n 1 무지개순서 1~7");
+            //유저가 선택한 1~7사이의 값을 하나씩 조건을 따져보고
+            //알맞은 색상 문자열로 변환하자, 가공하자
+            //각번호당 무지개색상 하나 ex)1 = red
+
+            // document.querySelector("body");
+            var color;
+            if(reult==1){
+                color = "red";
+            }else if(reult==2){
+                color = "orage";
+            }else if(reult==3){
+                color = "yellow";
+            }else if(reult==4){
+                color = "green";
+            }else if(reult==5){
+                color = "blue";
+            }else if(reult==6){
+                color = "navy";
+            }else if(reult==7){
+                color = "purple";
+            }else{
+                alert("제발 1~7에서만 골라");
+            }
+
+
+            document.body.style.background=color;//바디는 하나라 곧 바로 바디로 접속이 가능하게 지원해준다
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

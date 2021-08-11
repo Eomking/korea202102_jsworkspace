@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    window.addEventListener("load",function(){
+        createTable();
+    });
+    function createTable(){
+        //문서내의 없었던 태그를 create 처리하여 생성하는 방법으로 테이블을 구성해본다
+
+        var f = parseInt(prompt("원하는 층수를 입력하세요!"));
+        var c = parseInt(prompt("원하는 벽 두께를 입력하세요!"));
+        var table = document.createElement("table");
+        table.style.width=300+"px";
+        table.border=c+"px solid red"
+        
+       //tr 생성
+        for(var a=f; a>=1; a--){
+            var tr = document.createElement("tr");//<tr></tr>과 같다
+                for(var i=1; i<=3; i++){
+                var td = document.createElement("td");
+                td.innerText=a+"0"+i+"호";
+                tr.appendChild(td);
+                }
+        table.appendChild(tr);//tr 부착
+       }
+       
+       
+       document.body.appendChild(table);
+       
+    }
+</script>
+</head>
+<body>
+    
+</body>
+</html>

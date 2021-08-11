@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>폴더 접고열고</title>
+</head>
+<script>
+var status;//상태를 담게될 변수
+var flag=true;
+function openClose(){
+    status=(flag)? "on":"off"; 
+    document.querySelector("#folder").src="../images/folder_"+status+".webp"/*문서내의 folder라는 요소의 src를 변경해보되, 변경할 이미지가 단 2가지 경우밖에 없으므로,
+                                                                     어떠한 이미지가 나올지는 삼항연산자에게 맡겨보자!!*/
+    flag=!flag;
+}
+</script>
+<body>
+    <img id="folder" src="../images/folder_off.webp" onclick="openClose()">
+</body>
+</html>

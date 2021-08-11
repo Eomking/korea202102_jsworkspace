@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script src="../js/Ball.js"></script>
+<script src="../js/lib.js"></script>
+<script>
+    var wrapper;
+    //공을 가두어 놓을 벽
+    var ballArray=["ball.png","ball2.png","ball3.png","ball4.png","ball5.png"];
+    var ball;//볼 한개를 가리킬 수 있는 전역변수
+    var balls=[];//볼이 여러개를 가리킬 수 있는 전역 배열
+    function createWall(){
+        wrapper = document.createElement("div");
+        wrapper.style.width=800+"px";
+        wrapper.style.height=700+"px";
+        wrapper.style.margin="auto";
+        wrapper.style.border=5+"px solid red";
+        wrapper.style.position="relative";//자식이 앱솔로 올 예정이라
+    
+        document.body.appendChild(wrapper);
+    }
+    function createBall(){
+        var velX=getRandom(10)+1;//1~10;
+        var velY=getRandom(10)+1;//1~10;
+
+        ball = new Ball(wrapper, "../images/ball/"+ballArray[getRandom(ballArray.length)], 35,35,velX,velY); //생성되는 공은 wrapper에 부착됨!!!
+        balls.push(ball);//볼을 담아놓을 배열에 방금 태어난 볼을 추가!!
+    }
+    //키보드의 스페이스바를 눌르면, 볼을 생성해보자!!!
+    function space(){
+        if(event.keyCode==32){
+            createBall();
+        }
+    }
+    
+    function init(){
+        createWall();
+    }
+    function gameLoop(){
+        //배열에 들어있는 만큼만 돌려라 따라서 배열에 아무것도 없으면 안돈다
+        //즉 undefined 조건 조차 필요 X
+        for(var i = 0;balls.length;i++){
+            balls[i].move();//배열에 들어있는 볼만큼 돌려라
+        }    
+    }
+    window.addEventListener("load",function(){
+        init();
+        setInterval("gameLoop()",10);
+    });
+</script>
+</head>
+<body onkeydown="space()">
+ <div id="wrapper"></div>
+</body>
+</html>

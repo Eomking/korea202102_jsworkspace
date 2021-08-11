@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #pica{
+        width: 80px;
+        position: absolute;
+        left: 0px;
+        top: 200px;
+    }
+</style>
+<script>
+    var targetX=500;//피카추가 도달할 목표지점의 x좌표
+    var a=0.1;//비율을 표현하는 비율계수
+    function move(){
+        var pica=document.getElementById("pica");zzzzzzzzs
+        // pica.style.left=targetX+"px";
+        //공식: 물체위치 = 현재 위치+a*(목표지점-현재내위치)
+        pica.style.left= pica.style.left+a*(targetX-pica.style.left)+"px";
+    }
+</script>
+</head>
+<body>
+    <button onclick="move()">움직이기</button>
+    <img src="../images/pica.png" id="pica">
+</body>
+</html>
